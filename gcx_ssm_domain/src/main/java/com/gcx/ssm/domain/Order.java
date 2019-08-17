@@ -2,7 +2,19 @@ package com.gcx.ssm.domain;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+/*
+id	varchar2(32)
+ordernum	varchar2(20)
+ordertime	timestamp(6)
+peoplecount	integer
+orderdesc	varchar2(500)
+paytype	integer
+orderstatus	integer
+productid	varchar2(32)
+memberid	varchar2(32)
 
+ */
 public class Order {
     private String id;
     private String orderNum;
@@ -10,12 +22,44 @@ public class Order {
     private String orderTimeStr;
     private Integer peopleCount;
     private String orderDesc;
-    private String payType;
+    private Integer payType;
+    private String payTypeStr;
     private Integer orderStatus;
     private String orderStatusStr;
     private String productId;
     private String memberId;
     private Product product;
+    private Member member;
+    private List<Traveller> travellerList;
+
+    public String getPayTypeStr() {
+        if(payType==1){
+            payTypeStr = "支付宝";
+        }else if(payType==0){
+            payTypeStr = "微信";
+        }
+        return payTypeStr;
+    }
+
+    public void setPayTypeStr(String payTypeStr) {
+        this.payTypeStr = payTypeStr;
+    }
+
+    public List<Traveller> getTravellerList() {
+        return travellerList;
+    }
+
+    public void setTravellerList(List<Traveller> travellerList) {
+        this.travellerList = travellerList;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
 
     public String getOrderTimeStr() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -83,11 +127,11 @@ public class Order {
         this.orderDesc = orderDesc;
     }
 
-    public String getPayType() {
+    public Integer getPayType() {
         return payType;
     }
 
-    public void setPayType(String payType) {
+    public void setPayType(Integer payType) {
         this.payType = payType;
     }
 
