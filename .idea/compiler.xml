@@ -13,5 +13,8 @@
         <module name="gcx_ssm_utils" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="securityTest" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
