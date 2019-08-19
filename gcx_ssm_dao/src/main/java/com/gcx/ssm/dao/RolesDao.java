@@ -1,5 +1,6 @@
 package com.gcx.ssm.dao;
 
+import com.gcx.ssm.domain.Permission;
 import com.gcx.ssm.domain.Role;
 import org.apache.ibatis.annotations.*;
 
@@ -26,7 +27,12 @@ public interface RolesDao {
     @Select("select * from role")
     public List<Role> findAll();
 
-
     @Insert("insert into role (roleName, roleDesc) values (#{roleName}, #{roleDesc})")
     public void save(Role role);
+
+    @Select("select * from permission where id not in (select PERMISSIONID from role_permission where roleid=#{id})")
+    List<Permission> findOtherPermission(String id);
+
+    @Insert("insert into role_permission values(#{permissionId}, #{roleId})")
+    void addPermissionToRole(@Param("permissionId")String id, @Param("roleId") String roleId);
 }

@@ -1,6 +1,7 @@
 package com.gcx.ssm.service.impl;
 
 import com.gcx.ssm.dao.RolesDao;
+import com.gcx.ssm.domain.Permission;
 import com.gcx.ssm.domain.Role;
 import com.gcx.ssm.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,15 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void save(Role role) {
         rolesDao.save(role);
+    }
+
+    @Override
+    public List<Permission> findOtherPermission(String id) {
+        return rolesDao.findOtherPermission(id);
+    }
+
+    @Override
+    public void addPermissionToRole(String roleId, String id) {
+        rolesDao.addPermissionToRole(id, roleId);
     }
 }

@@ -1,5 +1,6 @@
 package com.gcx.ssm.dao;
 
+import com.gcx.ssm.domain.Role;
 import com.gcx.ssm.domain.UserInfo;
 import org.apache.ibatis.annotations.*;
 
@@ -51,4 +52,10 @@ public interface UserDao {
     })
     UserInfo findById(String id);
 
+
+    @Select("select * from ROLE where id not in(select roleid from USERS_ROLE where userid=#{id})")
+    List<Role> findOtherRoleById(String id);
+
+    @Insert("insert into USERS_ROLE values(#{userId}, #{id})")
+    void addRoleToUser(@Param("userId") String userId, @Param("id") String id);
 }

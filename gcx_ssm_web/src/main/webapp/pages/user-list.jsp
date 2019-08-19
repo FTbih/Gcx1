@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
 <!-- 页面meta -->
@@ -105,19 +107,23 @@
 						<div class="table-box">
 
 							<!--工具栏-->
+							<security:authorize access="hasRole('ROLE_ADMIN')">
 							<div class="pull-left">
 								<div class="form-group form-inline">
 									<div class="btn-group">
+
 										<button type="button" class="btn btn-default" title="新建" onclick="location.href='${pageContext.request.contextPath}/pages/user-add.jsp'">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
-										
+
 										<button type="button" class="btn btn-default" title="刷新">
 											<i class="fa fa-refresh"></i> 刷新
 										</button>
+
 									</div>
 								</div>
 							</div>
+							</security:authorize>
 							<div class="box-tools pull-right">
 								<div class="has-feedback">
 									<input type="text" class="form-control input-sm"
@@ -155,7 +161,7 @@
 											<td>${user.statusStr }</td>											
 											<td class="text-center">
 												<a href="${pageContext.request.contextPath}/user/findById.do?id=${user.id}" class="btn bg-olive btn-xs">详情</a>
-												<a href="${pageContext.request.contextPath}/user/findUserByIdAndAllRole.do?id=${user.id}" class="btn bg-olive btn-xs">添加角色</a>
+												<a href="${pageContext.request.contextPath}/user/findUserByIdAndAllRole?id=${user.id}" class="btn bg-olive btn-xs">添加角色</a>
 											</td>
 										</tr>
 									</c:forEach>

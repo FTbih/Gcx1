@@ -29,7 +29,7 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.6.8</version>
+            <version>1.8.4</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -170,7 +170,6 @@
             <artifactId>ojdbc14</artifactId>
             <version>${oracle.version}</version>
         </dependency>
-
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>jsr250-api</artifactId>
