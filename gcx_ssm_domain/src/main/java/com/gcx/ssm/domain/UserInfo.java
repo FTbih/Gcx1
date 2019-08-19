@@ -54,6 +54,7 @@ public class UserInfo {
     }
 
     public int getStatus() {
+
         return status;
     }
 
@@ -62,6 +63,11 @@ public class UserInfo {
     }
 
     public String getStatusStr() {
+        if(status==1){
+            statusStr="已激活";
+        }else if(status==0){
+            statusStr="未激活";
+        }
         return statusStr;
     }
 

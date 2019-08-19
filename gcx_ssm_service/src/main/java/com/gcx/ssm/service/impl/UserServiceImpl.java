@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,13 +21,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         //调用dao查询用户信息
         UserInfo userInfo = userDao.findByUsername(s);
         //由于需要返回一个UserDetails对象，所以需要新建一个User对象（框架提供的）,将账号密码等参数传入，然后返回
-        User user = new User(userInfo.getUsername(), "{noop}"+userInfo.getPassword(),userInfo.getStatus()==1?true:false,true, true, true, getAuthority(userInfo));
+        User user = new User(userInfo.getUsername(), userInfo.getPassword(),userInfo.getStatus()==1?true:false,true, true, true, getAuthority(userInfo));
         return user;
     }
 
@@ -38,5 +41,22 @@ public class UserServiceImpl implements UserService {
         }
 
         return list;
+    }
+
+    @Override
+    public List<UserInfo> findAll() {
+        return userDao.findAll();
+    }
+
+    @Override
+    public void save(UserInfo userInfo) {
+        String encode = bCryptPasswordEncoder.encode(userInfo.getPassword());
+        userInfo.setPassword(encode);
+        userDao.save(userInfo);
+    }
+
+    @Override
+    public UserInfo findById(String id) {
+        return userDao.findById(id);
     }
 }
